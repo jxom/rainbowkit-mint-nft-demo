@@ -1,5 +1,6 @@
 import './global.css';
 import '@rainbow-me/rainbowkit/styles.css';
+import { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import {
   RainbowKitProvider,
@@ -49,6 +50,9 @@ const wagmiClient = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+  if (!isMounted) return null;
   return (
     <WagmiProvider client={wagmiClient}>
       <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
